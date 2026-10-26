@@ -178,6 +178,30 @@ GitHub Actions runs on pushes and pull requests. It installs the development dep
 
 
 
+## Published Docker image
+
+
+
+After CI passes on a push to `main`, GitHub Actions publishes a public image to GHCR with `latest` and commit-SHA tags.
+
+
+
+Pull the latest image:
+
+
+
+```powershell
+
+docker pull ghcr.io/kristinajakovceska/opspulse:latest
+
+```
+
+
+
+Pulling downloads the image to Docker Desktop. It does not start a container.
+
+
+
 \## Troubleshooting
 
 
