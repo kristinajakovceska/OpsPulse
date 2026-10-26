@@ -33,6 +33,15 @@ jobs:
       - name: Build Docker image
         run: docker compose build
 
+      - name: Generate temporary HTTPS certificate
+        run: |
+          mkdir -p nginx/certs
+          openssl req -x509 -nodes -days 1 -newkey rsa:2048 \
+            -keyout nginx/certs/opspulse.key \
+            -out nginx/certs/opspulse.crt \
+            -subj "/CN=localhost" \
+            -addext "subjectAltName=DNS:localhost,IP:127.0.0.1"
+
       - name: Start Docker Compose
         run: docker compose up -d
 
@@ -51,6 +60,9 @@ jobs:
           docker compose logs
           echo "OpsPulse health check did not pass."
           exit 1
+
+      - name: Smoke test HTTPS health endpoint
+        run: curl --fail --silent --show-error --insecure https://localhost:8443/health
 
       - name: Stop Docker Compose
         if: always()
