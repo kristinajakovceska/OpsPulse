@@ -124,20 +124,19 @@ Pulling downloads the image to Docker Desktop. It does not start a container.
 
 ### Port 8080 or 8443 is already in use
 
-The Nginx host ports are configured in `compose.yaml`:
-
+Nginx ports are bound to 127.0.0.1, so they are available only from this computer. The current mappings are configured in compose.yaml:
 ```yaml
 ports:
-  - "8080:80"
-  - "8443:443"
+  - "127.0.0.1:8080:80"
+  - "127.0.0.1:8443:443"
 ```
 
 If either host port is occupied, change the left side to another free port. For example:
 
 ```yaml
 ports:
-  - "8081:80"
-  - "8444:443"
+  - "127.0.0.1:8081:80"
+  - "127.0.0.1:8444:443"
 ```
 
 Then use `http://localhost:8081` and `https://localhost:8444`.
