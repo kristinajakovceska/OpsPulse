@@ -174,7 +174,7 @@ Run Ruff:
 
 
 
-GitHub Actions runs on pushes and pull requests. It installs the development dependencies, runs Ruff and pytest, builds the Docker image, starts the Compose services, and makes a smoke request to `/health`. The workflow shuts down its Compose services when the job finishes. It does not deploy to a developer's computer or publish an image to GHCR.
+GitHub Actions runs on pushes and pull requests. It installs the development dependencies, runs Ruff and pytest, builds the Docker image, starts the Compose services, and makes a smoke request to `/health`. The workflow shuts down its Compose services when the job finishes. When CI succeeds on a push to `main`, a separate job publishes the Docker image to GHCR with `latest` and commit-specific tags. Pull requests run the CI checks but do not publish images. This delivers a container image and does not deploy a running application.
 
 
 
